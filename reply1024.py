@@ -7,12 +7,12 @@ import requests
 from bs4 import BeautifulSoup
 from wechatpy import WeChatClient
 from wechatpy.client.api import WeChatMessage, WeChatTemplate
-from datetime import datetime
-from sel_def_logger import MyLog
+from datetime import datetime, timedelta
+# from sel_def_logger import MyLog
 
 class postreply1024:
     _UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.188"
-    _mylogg = MyLog().logger
+    # _mylogg = MyLog().logger
     def __init__(self, host,cookies: str,app_id,app_secret,user_id,template_id,target_url):
         self._host=host
         self._cookies: str = cookies
@@ -25,7 +25,8 @@ class postreply1024:
     def _get_random_color(self):
         return "#%06x" % random.randint(0, 0xFFFFFF)
     def _send_to_mp(self,msg:str):
-        tday = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        tday = datetime.now()+timedelta(hours = 8)
+        tday=tday.strftime("%Y-%m-%d %H:%M:%S")
         client = WeChatClient(self._app_id, self._app_secret)
         wm = WeChatMessage(client)
         data = {
@@ -153,7 +154,7 @@ class postreply1024:
             self._reply()
         except BaseException:
             # self._report_reply_error(traceback.format_exc())
-            self._mylogg.error('program error!')
+            # self._mylogg.error('program error!')
             self._send_to_mp(traceback.format_exc())
 
 

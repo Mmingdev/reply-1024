@@ -1,15 +1,12 @@
 # coding:UTF-8 #
-"""
-@filename:sel_def_logger.py
-@autor:stormcar
-@time:2023-08-02
-"""
+
 import os
 import sys
 import logging
 from time import strftime
 # 输出日志路径
-PATH = os.getcwd()+'/logs/'
+# PATH = os.getcwd()+'/logs/'
+PATH='./logs/'
 # 设置日志格式#和时间格式
 FMT = '%(asctime)s %(filename)s [line:%(lineno)d] %(levelname)s: %(message)s'
 DATEFMT = '%Y-%m-%d %H:%M:%S'
