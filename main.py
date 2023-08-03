@@ -1,10 +1,10 @@
 import os
 from reply1024 import postreply1024
-from sel_def_logger import MyLog
-from datetime import datetime
+# from sel_def_logger import MyLog
+# from datetime import datetime
 
-mylogg = MyLog().logger
-mylogg.info("代码开始运行的时间{}".format(datetime.now()))
+# mylogg = MyLog().logger
+# mylogg.info("代码开始运行的时间{}".format(datetime.now()))
 def handler(event, context):
     reply1024()
     return "Done"

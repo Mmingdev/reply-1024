@@ -5,10 +5,10 @@ name: reply-1024
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+#  push:
+#    branches: [ "main" ]
+#  pull_request:
+#    branches: [ "main" ]
   schedule:
     # 分(0-59) 时(0-23) 日(1-31) 月(1-12) 星期(0-6) UTC时间 +8小时为北京时间
     - cron: 12 2 * * 1
