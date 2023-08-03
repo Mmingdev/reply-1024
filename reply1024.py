@@ -3,7 +3,7 @@ import traceback
 import random
 import requests
 
-from typing import Optional
+# from typing import Optional
 from bs4 import BeautifulSoup
 from wechatpy import WeChatClient
 from wechatpy.client.api import WeChatMessage, WeChatTemplate
@@ -12,7 +12,7 @@ from sel_def_logger import MyLog
 
 class postreply1024:
     _UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.188"
-    # _mylogg = MyLog().logger
+    _mylogg = MyLog().logger
     def __init__(self, host,cookies: str,app_id,app_secret,user_id,template_id,target_url):
         self._host=host
         self._cookies: str = cookies
@@ -34,17 +34,6 @@ class postreply1024:
         }
         res = wm.send_template(self._user_id, self._template_id, data)
 
-    # def _report_reply_error(self, msg: str):
-    #     print("----ERROR:----\n" + msg+"\n--------")
-    #
-    # def _report_reply_sucess(self):
-    #     print("回帖成功!")
-    #
-    # def _report_post_error(self):
-    #     print("回复失败！")
-    #
-    # def _report_getlist_error(self):
-    #     print("获取列表失败！")
 
     #获取列表
     def _getlist(self):
@@ -158,8 +147,6 @@ class postreply1024:
         else:
             self._send_to_mp("签到回帖失败！")
             return
-
-
 
     def run(self):
         try:
