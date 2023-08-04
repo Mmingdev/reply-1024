@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 from wechatpy import WeChatClient
 from wechatpy.client.api import WeChatMessage, WeChatTemplate
 from datetime import datetime, timedelta
+from time import sleep
 # from sel_def_logger import MyLog
 
 class postreply1024:
@@ -122,12 +123,16 @@ class postreply1024:
                 break
         else:
             raise RuntimeError('尝试帖子次数过多')
+        wait=int(random.uniform(1,3)*1000)/1000
+        sleep(wait)
         res2=self._visitthread(tidurl)
         if res2.text.find("快速回帖")==-1:
             self._send_to_mp("前置帖子访问失败！")
 
         wordlist=['忽忘提肛，感谢分享','感谢楼主辛苦分享','不管怎么说先冲为敬','感谢分享','感谢分享，大佬辛苦','看看大佬的分享']
         atc_content=random.choice(wordlist)
+        wait=int(random.uniform(1,3)*1000)/1000
+        sleep(wait)
         replyres1 = self._postreply(atc_title, atc_content,tidurl, tid)
         if replyres1.text.find("發貼完畢點擊進入主題列表")!=-1:
             self._send_to_mp("更新回帖成功！")
@@ -135,6 +140,8 @@ class postreply1024:
             self._send_to_mp("更新回帖失败！")
             return
 
+        wait=int(random.uniform(1,3)*1000)/1000
+        sleep(wait)
         res3 = self._visitthread(self._target_url)
         if res3.text.find("快速回帖")==-1:
             self._send_to_mp("签到帖子访问失败！")
@@ -142,6 +149,8 @@ class postreply1024:
         atc_title = res3.select('title')[0].text
         atc_content="今日签到"
         tid = self._target_url.split('/')[-1].replace(".html","")
+        wait=int(random.uniform(1,3)*1000)/1000
+        sleep(wait)
         replyres2 = self._postreply(atc_title, atc_content,self._target_url, tid)
         if replyres2.text.find("發貼完畢點擊進入主題列表")!=-1:
             self._send_to_mp("签到回帖成功！")
