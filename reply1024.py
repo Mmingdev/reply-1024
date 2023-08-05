@@ -103,6 +103,20 @@ class postreply1024:
 
 
     def _reply(self):
+        atc_title = "[活动]八月份打卡签到活动专用贴！！禁止无关回复！！！增加新的奖励事项！！！注意第5条！！！"
+        atc_content = "今日签到"
+        tid = self._target_url.split('/')[-1].replace(".html", "")
+        wait = int(random.uniform(1, 3) * 1000) / 1000
+        sleep(wait)
+        replyres2 = self._postreply(atc_title, atc_content, self._target_url, tid)
+        if replyres2.text.find("發貼完畢點擊進入主題列表") != -1:
+            self._send_to_mp("签到回帖成功！")
+        else:
+            self._send_to_mp("签到回帖失败！")
+            return
+
+        wait = int(random.uniform(1, 3) * 1000) / 1000
+        sleep(wait)
         res1 = self._getlist()
         if res1.text.find("普通主題")==-1:
             self._send_to_mp("获取列表失败")
@@ -123,6 +137,7 @@ class postreply1024:
                 break
         else:
             raise RuntimeError('尝试帖子次数过多')
+
         wait=int(random.uniform(1,3)*1000)/1000
         sleep(wait)
         res2=self._visitthread(tidurl)
@@ -131,6 +146,7 @@ class postreply1024:
 
         wordlist=['忽忘提肛，感谢分享','感谢楼主辛苦分享','不管怎么说先冲为敬','感谢分享','感谢分享，大佬辛苦','看看大佬的分享']
         atc_content=random.choice(wordlist)
+
         wait=int(random.uniform(1,3)*1000)/1000
         sleep(wait)
         replyres1 = self._postreply(atc_title, atc_content,tidurl, tid)
@@ -140,23 +156,14 @@ class postreply1024:
             self._send_to_mp("更新回帖失败！")
             return
 
-        wait=int(random.uniform(1,3)*1000)/1000
-        sleep(wait)
-        res3 = self._visitthread(self._target_url)
-        if res3.text.find("快速回帖")==-1:
-            self._send_to_mp("签到帖子访问失败！")
+        # wait=int(random.uniform(1,3)*1000)/1000
+        # sleep(wait)
+        # res3 = self._visitthread(self._target_url)
+        # if res3.text.find("快速回帖")==-1:
+        #     self._send_to_mp("签到帖子访问失败！")
 
-        atc_title = res3.select('title')[0].text
-        atc_content="今日签到"
-        tid = self._target_url.split('/')[-1].replace(".html","")
-        wait=int(random.uniform(1,3)*1000)/1000
-        sleep(wait)
-        replyres2 = self._postreply(atc_title, atc_content,self._target_url, tid)
-        if replyres2.text.find("發貼完畢點擊進入主題列表")!=-1:
-            self._send_to_mp("签到回帖成功！")
-        else:
-            self._send_to_mp("签到回帖失败！")
-            return
+        # atc_title = res3.select('title')[0].text
+
 
     def run(self):
         try:
