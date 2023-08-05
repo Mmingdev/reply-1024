@@ -1,4 +1,3 @@
-# test demo
 import traceback
 import random
 import requests
