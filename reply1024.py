@@ -35,6 +35,23 @@ class postreply1024:
         }
         res = wm.send_template(self._user_id, self._template_id, data)
 
+    #获取回复内容
+    def _getword(self,wordlist, num):
+        wordlist_new = random.sample(wordlist, len(wordlist))
+        if num > len(wordlist):
+            for _ in range(int(num / len(wordlist)) - 1):
+                wordlist_sam = random.sample(wordlist, len(wordlist))
+                if wordlist_new[-1] == wordlist_sam[0]:
+                    wordlist_sam[0], wordlist_sam[-1] = wordlist_sam[-1], wordlist_sam[0]
+                wordlist_new.extend(wordlist_sam)
+            if num % len(wordlist):
+                wordlist_sam = random.sample(wordlist, num % len(wordlist))
+                if wordlist_new[-1] == wordlist_sam[0]:
+                    wordlist_sam[0] = wordlist_new[-2]
+                wordlist_new.extend(wordlist_sam)
+        else:
+            wordlist_new = random.sample(wordlist, num)
+        return wordlist_new
 
     #获取列表
     def _getlist(self):

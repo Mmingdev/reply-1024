@@ -12,6 +12,7 @@ on:
   schedule:
     # 分(0-59) 时(0-23) 日(1-31) 月(1-12) 星期(0-6) UTC时间 +8小时为北京时间
     - cron: 0 16 * 8 *
+    - cron: 5 4 * 8 *
 
 
   # Allows you to run this workflow manually from the Actions tab
@@ -40,6 +41,7 @@ jobs:
           pip3 install -r requirements.txt
 
       - name: reply1024
+        if: github.event.schedule == '5 4 * 8 *'
         run: |
           python3 main.py
         env:
@@ -50,3 +52,17 @@ jobs:
           USER_ID: ${{ secrets.USER_ID }}
           TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
           TARGET_URL: ${{ secrets.TARGET_URL }}
+
+      - name: randomreply
+        if: github.event.schedule == '0 16 * 8 *'
+        run: |
+          randomreply.py
+        env:
+          HOST: ${{ secrets.HOST }}
+          COOKIES: ${{ secrets.COOKIES }}
+          APP_ID: ${{ secrets.APP_ID }}
+          APP_SECRET: ${{ secrets.APP_SECRET }}
+          USER_ID: ${{ secrets.USER_ID }}
+          TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
+
+
