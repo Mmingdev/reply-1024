@@ -122,8 +122,8 @@ class postreply1024:
         atc_title = "[活动]八月份打卡签到活动专用贴！！禁止无关回复！！！增加新的奖励事项！！！注意第5条！！！"
         atc_content = "今日签到"
         tid = self._target_url.split('/')[-1].replace(".html", "")
-        wait = int(random.uniform(1, 3) * 1000) / 1000
-        sleep(wait)
+        # wait = int(random.uniform(1, 3) * 1000) / 1000
+        # sleep(wait)
         replyres2 = self._postreply(atc_title, atc_content, self._target_url, tid)
         if replyres2.text.find("發貼完畢點擊進入主題列表") != -1:
             self._send_to_mp("签到回帖成功！")
@@ -152,7 +152,7 @@ class postreply1024:
             else:
                 break
         else:
-            raise RuntimeError('尝试帖子次数过多')
+            raise RuntimeError('尝试次数过多')
 
         wait=int(random.uniform(1,3)*1000)/1000
         sleep(wait)
