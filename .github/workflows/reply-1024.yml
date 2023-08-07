@@ -12,9 +12,9 @@ on:
   schedule:
     # 分(0-59) 时(0-23) 日(1-31) 月(1-12) 星期(0-6) UTC时间 +8小时为北京时间
 #    - cron: 0 16 * 8 *
-    - cron: 26 8 * 8 *
+    - cron: 30 6 * 8 *
 #    - cron: 5 4 * 8 *
-    - cron: 30 8 * 8 *
+    - cron: 33 6 * 8 *
 
 
   # Allows you to run this workflow manually from the Actions tab
@@ -43,7 +43,7 @@ jobs:
           pip3 install -r requirements.txt
 
       - name: reply1024
-        if: github.event.schedule == '26 8 * 8 *'
+        if: github.event.schedule == '30 6 * 8 *'
         run: |
           python3 main.py
         env:
@@ -56,7 +56,7 @@ jobs:
           TARGET_URL: ${{ secrets.TARGET_URL }}
 
       - name: randomreply
-        if: github.event.schedule == '30 8 * 8 *'
+        if: github.event.schedule == '33 6 * 8 *'
         run: |
           python3 randomreply.py
         env:
