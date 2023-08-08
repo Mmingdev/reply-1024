@@ -15,7 +15,7 @@ n=(time2-time1).seconds
 print(f'time1={time1},type={type(time1)}')
 print(f'time2={time2},type={type(time2)}')
 print(f"time2-time1={n}")
-sleep(n)
+# sleep(n)
 time3 = datetime.now() + timedelta(hours=8)
 cl1 = postreply1024('', '', APP_ID, APP_SECRET, USER_ID, TEMPLATE_ID, '')
 msg=f'{time1}~{time2}~{time3}'
