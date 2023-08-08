@@ -57,7 +57,7 @@ jobs:
           TARGET_URL: ${{ secrets.TARGET_URL }}
 
       - name: randomreply
-        if: github.event.schedule == '5 4 * 8 1,2,3,4,5' or github.event.schedule == '3 2 * 8 0,6'
+        if: github.event.schedule == '5 4 * 8 1,2,3,4,5' || github.event.schedule == '3 2 * 8 0,6'
         run: |
           python3 randomreply.py
         env:
