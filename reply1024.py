@@ -124,6 +124,10 @@ class postreply1024:
         tid = self._target_url.split('/')[-1].replace(".html", "")
         # wait = int(random.uniform(1, 3) * 1000) / 1000
         # sleep(wait)
+        time1 = datetime.now() + timedelta(hours=8)
+        time2 = datetime(time1.year, time1.month, time1.day+1, 0, 0, 0, 0)
+        wait = (time2 - time1).seconds
+        sleep(wait)
         replyres2 = self._postreply(atc_title, atc_content, self._target_url, tid)
         if replyres2.text.find("發貼完畢點擊進入主題列表") != -1:
             self._send_to_mp("签到回帖成功！")

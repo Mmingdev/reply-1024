@@ -11,10 +11,10 @@ on:
  #   branches: [ "main" ]
   schedule:
     # 分(0-59) 时(0-23) 日(1-31) 月(1-12) 星期(0-6) UTC时间 +8小时为北京时间
-    - cron: 0 16 * 8 *
+    - cron: 40 15 * 8 *
     - cron: 5 4 * 8 1,2,3,4,5
     - cron: 3 2 * 8 0,6
-    - cron: 5 10 * 8 2
+#    - cron: 5 10 * 8 2
 
 
 
@@ -44,7 +44,7 @@ jobs:
           pip3 install -r requirements.txt
 
       - name: reply1024
-        if: github.event.schedule == '0 16 * 8 *'
+        if: github.event.schedule == '40 15 * 8 *'
         run: |
           python3 main.py
         env:
@@ -68,12 +68,12 @@ jobs:
           USER_ID: ${{ secrets.USER_ID }}
           TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
 
-      - name: test
-        if: github.event.schedule == '5 10 * 8 2'
-        run: python3 test.py
-        env:
-          APP_ID: ${{ secrets.APP_ID }}
-          APP_SECRET: ${{ secrets.APP_SECRET }}
-          USER_ID: ${{ secrets.USER_ID }}
-          TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
+#      - name: test
+#        if: github.event.schedule == '5 10 * 8 2'
+#        run: python3 test.py
+#        env:
+#          APP_ID: ${{ secrets.APP_ID }}
+#          APP_SECRET: ${{ secrets.APP_SECRET }}
+#          USER_ID: ${{ secrets.USER_ID }}
+#          TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
 
