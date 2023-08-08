@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 time1 = datetime.now() + timedelta(hours=8)
 # time1 = time1.strftime("%Y-%m-%d %H:%M:%S")
-time2=datetime(time1.year,time1.month,time1.day,14,50,0,0)
+time2=datetime(time1.year,time1.month,time1.day,15,20,0,0)
 n=(time2-time1).seconds
 print(f'time1={time1},type={type(time1)}')
 print(f'time2={time2},type={type(time2)}')
