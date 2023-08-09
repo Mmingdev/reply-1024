@@ -58,8 +58,10 @@ def random_reply():
         wait = int(random.uniform(5, 10) * 1000) / 1000
         sleep(wait)
         res2 = cl1._visitthread(tidurl)
-        # if res2.text.find("快速回帖") == -1:
+        if res2.text.find("快速回帖") == -1:
+            print("前置帖子访问失败！")
         #     cl1._send_to_mp("前置帖子访问失败！")
+
 
         if post_s%5==0 and post_s!=0:
             wait = int(random.uniform(300, 600) * 1000) / 1000

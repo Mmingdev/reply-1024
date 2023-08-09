@@ -35,6 +35,16 @@ class postreply1024:
         }
         res = wm.send_template(self._user_id, self._template_id, data)
 
+    def _report_signin_failed(self,msg:str):
+        tday = datetime.now()+timedelta(hours = 8)
+        tday=tday.strftime("%Y-%m-%d %H:%M:%S")
+        client = WeChatClient(self._app_id, self._app_secret)
+        wm = WeChatMessage(client)
+        data = {
+            "date": {"value": format(tday), "color": self._get_random_color()},
+            "re": {"value": msg, "color": self._get_random_color()},
+        }
+        res = wm.send_template(self._user_id, '1gUyGk6YJWp3vkdsIVbf571M-O5SK2mPCq28QG2xKrA', data)
     #获取回复内容
     def _getword(self,wordlist, num):
         wordlist_new = random.sample(wordlist, len(wordlist))
@@ -119,6 +129,12 @@ class postreply1024:
 
 
     def _reply(self):
+        res3 = self._visitthread(self._target_url)
+        if res3.text.find("快速回帖")==-1:
+            # self._send_to_mp("签到帖子访问失败！")
+            print("签到帖子访问失败！")
+
+        # atc_title = res3.select('title')[0].text
         atc_title = "[活动]八月份打卡签到活动专用贴！！禁止无关回复！！！增加新的奖励事项！！！注意第5条！！！"
         atc_content = "今日签到"
         tid = self._target_url.split('/')[-1].replace(".html", "")
@@ -132,7 +148,7 @@ class postreply1024:
         if replyres2.text.find("發貼完畢點擊進入主題列表") != -1:
             self._send_to_mp("签到回帖成功！")
         else:
-            self._send_to_mp("签到回帖失败！")
+            self._report_signin_failed("签到回帖失败！")
             return
 
         wait = int(random.uniform(1, 3) * 1000) / 1000
@@ -164,10 +180,16 @@ class postreply1024:
         if res2.text.find("快速回帖")==-1:
             self._send_to_mp("前置帖子访问失败！")
 
-        wordlist=['忽忘提肛，感谢分享','感谢楼主辛苦分享','不管怎么说先冲为敬','感谢分享','感谢分享，大佬辛苦','看看大佬的分享']
+        wordlist = ['忽忘提肛，感谢分享',
+                    '感谢楼主辛苦分享',
+                    '不管怎么说先冲为敬',
+                    '感谢分享',
+                    '大佬辛苦，感谢分享',
+                    '看看大佬的分享',
+                    '精彩帖子，感谢楼主']
         atc_content=random.choice(wordlist)
 
-        wait=int(random.uniform(1,3)*1000)/1000
+        wait=int(random.uniform(10,20)*1000)/1000
         sleep(wait)
         replyres1 = self._postreply(atc_title, atc_content,tidurl, tid)
         if replyres1.text.find("發貼完畢點擊進入主題列表")!=-1:
@@ -189,9 +211,8 @@ class postreply1024:
         try:
             self._reply()
         except BaseException:
-            # self._report_reply_error(traceback.format_exc())
             # self._mylogg.error('program error!')
-            self._send_to_mp(traceback.format_exc())
+            self._report_signin_failed(traceback.format_exc())
 
 
 
