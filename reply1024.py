@@ -45,6 +45,7 @@ class postreply1024:
             "re": {"value": msg, "color": self._get_random_color()},
         }
         res = wm.send_template(self._user_id, '1gUyGk6YJWp3vkdsIVbf571M-O5SK2mPCq28QG2xKrA', data)
+
     #获取回复内容
     def _getword(self,wordlist, num):
         wordlist_new = random.sample(wordlist, len(wordlist))
@@ -142,7 +143,7 @@ class postreply1024:
         # sleep(wait)
         time1 = datetime.now() + timedelta(hours=8)
         time2 = datetime(time1.year, time1.month, time1.day+1, 0, 0, 0, 0)
-        wait = (time2 - time1).seconds
+        wait = (time2 - time1).seconds+1
         sleep(wait)
         replyres2 = self._postreply(atc_title, atc_content, self._target_url, tid)
         if replyres2.text.find("發貼完畢點擊進入主題列表") != -1:
@@ -197,15 +198,6 @@ class postreply1024:
         else:
             self._send_to_mp("更新回帖失败！")
             return
-
-        # wait=int(random.uniform(1,3)*1000)/1000
-        # sleep(wait)
-        # res3 = self._visitthread(self._target_url)
-        # if res3.text.find("快速回帖")==-1:
-        #     self._send_to_mp("签到帖子访问失败！")
-
-        # atc_title = res3.select('title')[0].text
-
 
     def run(self):
         try:
