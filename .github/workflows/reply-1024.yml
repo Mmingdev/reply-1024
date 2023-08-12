@@ -12,8 +12,8 @@ on:
   schedule:
     # 分(0-59) 时(0-23) 日(1-31) 月(1-12) 星期(0-6) UTC时间 +8小时为北京时间
     - cron: 40 15 * 8 *
-    - cron: 5 4 * 8 1,2,3,4,5
-    - cron: 3 2 * 8 0,6
+    - cron: 5 4,11,13 * 8 1,2,3,4,5
+    - cron: 3 2,6,8,12 * 8 0,6
 #    - cron: 5 10 * 8 2
 
 
@@ -57,7 +57,7 @@ jobs:
           TARGET_URL: ${{ secrets.TARGET_URL }}
 
       - name: randomreply
-        if: github.event.schedule == '5 4 * 8 1,2,3,4,5' || github.event.schedule == '3 2 * 8 0,6'
+        if: github.event.schedule == '5 4,11,13 * 8 1,2,3,4,5' || github.event.schedule == '3 2,6,8,12 * 8 0,6'
         run: |
           python3 randomreply.py
         env:
