@@ -14,7 +14,7 @@ on:
     - cron: 40 15 * 8 *
     - cron: 5 4,11,13 * 8 1,2,3,4,5
     - cron: 3 2,6,8,12 * 8 0,6
-    - cron: 0 1 15 * *
+#    - cron: 0 1 15 * *
 #    - cron: 5 10 * 8 2
 
 
@@ -69,24 +69,15 @@ jobs:
           USER_ID: ${{ secrets.USER_ID }}
           TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
 
-      - name: Commit
-        if: github.event.schedule == '0 1 15 * *'
-        run: |
-          git config --global user.email ${{ secrets.GITH_EMAIL }}
-          git config --global user.name Mmingdev
-          git commit --allow-empty -m "每月更新仓库"
-
-      - name: Push changes
-        if: github.event.schedule == '0 1 15 * *'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITH_TOKEN }}
-
-#      - name: test
-#        if: github.event.schedule == '5 10 * 8 2'
-#        run: python3 test.py
-#        env:
-#          APP_ID: ${{ secrets.APP_ID }}
-#          APP_SECRET: ${{ secrets.APP_SECRET }}
-#          USER_ID: ${{ secrets.USER_ID }}
-#          TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
+#      - name: Commit
+#        if: github.event.schedule == '0 1 15 * *'
+#        run: |
+#          git config --global user.email ${{ secrets.GITH_EMAIL }}
+#          git config --global user.name Mmingdev
+#          git commit --allow-empty -m "每月更新仓库"
+#
+#      - name: Push changes
+#        if: github.event.schedule == '0 1 15 * *'
+#        uses: ad-m/github-push-action@master
+#        with:
+#          github_token: ${{ secrets.GITH_TOKEN }}

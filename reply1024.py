@@ -147,9 +147,11 @@ class postreply1024:
         sleep(wait)
         replyres2 = self._postreply(atc_title, atc_content, self._target_url, tid)
         if replyres2.text.find("發貼完畢點擊進入主題列表") != -1:
-            self._send_to_mp("签到回帖成功！")
+            sign_res = "签到成功"
+            # self._send_to_mp("签到回帖成功！")
         else:
-            self._report_signin_failed("签到回帖失败！")
+            sign_res = "签到失败"
+            # self._report_signin_failed("签到回帖失败！")
             return
 
         wait = int(random.uniform(1, 3) * 1000) / 1000
@@ -194,10 +196,13 @@ class postreply1024:
         sleep(wait)
         replyres1 = self._postreply(atc_title, atc_content,tidurl, tid)
         if replyres1.text.find("發貼完畢點擊進入主題列表")!=-1:
-            self._send_to_mp("更新回帖成功！")
+            reply_res="更新回帖成功"
+            # self._send_to_mp("更新回帖成功！")
         else:
-            self._send_to_mp("更新回帖失败！")
+            reply_res = "更新回帖失败"
+            # self._send_to_mp("更新回帖失败！")
             return
+        self._send_to_mp(sign_res+","+reply_res)
 
     def run(self):
         try:
