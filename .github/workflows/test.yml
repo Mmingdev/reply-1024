@@ -25,7 +25,7 @@ jobs:
         run: |
           git config --global user.email ${{ secrets.GITH_EMAIL }}
           git config --global user.name Mmingdev
-          git add.
+          git add .
           git commit -m "运行成功"
 
       - name: Push changes
