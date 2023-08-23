@@ -69,15 +69,15 @@ jobs:
           USER_ID: ${{ secrets.USER_ID }}
           TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
 
-#      - name: Commit
-#        if: github.event.schedule == '0 1 15 * *'
-#        run: |
-#          git config --global user.email ${{ secrets.GITH_EMAIL }}
-#          git config --global user.name Mmingdev
+      - name: Commit
+        run: |
+          git config --global user.email ${{ secrets.GITH_EMAIL }}
+          git config --global user.name Mmingdev
 #          git commit --allow-empty -m "每月更新仓库"
-#
-#      - name: Push changes
-#        if: github.event.schedule == '0 1 15 * *'
-#        uses: ad-m/github-push-action@master
-#        with:
-#          github_token: ${{ secrets.GITH_TOKEN }}
+          git add .
+          git commit -m "记录日志"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITH_TOKEN }}
