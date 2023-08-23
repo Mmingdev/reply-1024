@@ -90,26 +90,3 @@ jobs:
 #          APP_SECRET: ${{ secrets.APP_SECRET }}
 #          USER_ID: ${{ secrets.USER_ID }}
 #          TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
-
-name: test
-on:
-  workflow_dispatch:
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.8
-
-      - name: Install dependencies
-        run: |
-          pip3 install -r requirements.txt
-
-      - name: testcode
-        run: |
-          python3 test.py
