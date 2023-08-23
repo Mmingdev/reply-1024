@@ -14,4 +14,4 @@ with open("./tmp/test.txt","a+") as f:
 with open("./tmp/test.txt") as f:
     con=f.readline()
 # print(f"文件关闭了吗：{f.closed}")
-# print("读取内容：",con)
+print("读取内容：",con)
