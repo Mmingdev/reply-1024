@@ -8,11 +8,11 @@ from wechatpy import WeChatClient
 from wechatpy.client.api import WeChatMessage, WeChatTemplate
 from datetime import datetime, timedelta
 from time import sleep
-# from sel_def_logger import MyLog
+from sel_def_logger import MyLog
 
 class postreply1024:
     _UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.188"
-    # _mylogg = MyLog().logger
+    _mylogg = MyLog().logger
     def __init__(self, host,cookies: str,app_id,app_secret,user_id,template_id,target_url):
         self._host=host
         self._cookies: str = cookies
@@ -136,7 +136,7 @@ class postreply1024:
             print("签到帖子访问失败！")
 
         # atc_title = res3.select('title')[0].text
-        atc_title = "[活动]八月份打卡签到活动专用贴！！禁止无关回复！！！增加新的奖励事项！！！注意第5条！！！"
+        atc_title = "[活动]九月份打卡签到活动专用贴！！禁止无关回复！！！增加新的奖励事项！！！注意第5条！！！"
         atc_content = "今日签到"
         tid = self._target_url.split('/')[-1].replace(".html", "")
         # wait = int(random.uniform(1, 3) * 1000) / 1000
@@ -208,7 +208,7 @@ class postreply1024:
         try:
             self._reply()
         except BaseException:
-            # self._mylogg.error('program error!')
+            self._mylogg.error('program error!')
             self._report_signin_failed(traceback.format_exc())
 
 

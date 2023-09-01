@@ -11,9 +11,9 @@ on:
  #   branches: [ "main" ]
   schedule:
     # 分(0-59) 时(0-23) 日(1-31) 月(1-12) 星期(0-6) UTC时间 +8小时为北京时间
-    - cron: 40 15 * 8 *
-    - cron: 5 4,11,13 * 8 1,2,3,4,5
-    - cron: 3 2,6,8,12 * 8 0,6
+    - cron: 40 15 * 9 *
+    - cron: 5 4,11,13 * 9 1,2,3,4,5
+    - cron: 3 2,6,8,12 * 9 0,6
 #    - cron: 0 1 15 * *
 #    - cron: 5 10 * 8 2
 
@@ -45,7 +45,7 @@ jobs:
           pip3 install -r requirements.txt
 
       - name: reply1024
-        if: github.event.schedule == '40 15 * 8 *'
+        if: github.event.schedule == '40 15 * 9 *'
         run: |
           python3 main.py
         env:
@@ -58,7 +58,7 @@ jobs:
           TARGET_URL: ${{ secrets.TARGET_URL }}
 
       - name: randomreply
-        if: github.event.schedule == '5 4,11,13 * 8 1,2,3,4,5' || github.event.schedule == '3 2,6,8,12 * 8 0,6'
+        if: github.event.schedule == '5 4,11,13 * 9 1,2,3,4,5' || github.event.schedule == '3 2,6,8,12 * 9 0,6'
         run: |
           python3 randomreply.py
         env:
@@ -70,7 +70,7 @@ jobs:
           TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
 
       - name: Commit1
-        if: github.event.schedule == '5 4,11,13 * 8 1,2,3,4,5' || github.event.schedule == '3 2,6,8,12 * 8 0,6'
+        if: github.event.schedule == '5 4,11,13 * 9 1,2,3,4,5' || github.event.schedule == '3 2,6,8,12 * 9 0,6'
         run: |
           git config --global user.email ${{ secrets.GITH_EMAIL }}
           git config --global user.name Mmingdev
@@ -78,7 +78,7 @@ jobs:
           git commit -m "记录日志"
 
       - name: Push changes
-        if: github.event.schedule == '5 4,11,13 * 8 1,2,3,4,5' || github.event.schedule == '3 2,6,8,12 * 8 0,6'
+        if: github.event.schedule == '5 4,11,13 * 9 1,2,3,4,5' || github.event.schedule == '3 2,6,8,12 * 9 0,6'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITH_TOKEN }}

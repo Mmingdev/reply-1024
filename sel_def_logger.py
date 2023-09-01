@@ -25,7 +25,7 @@ class MyLog(object):
         # WARNING | 当某些不期望的事情发生时记录的信息（如，磁盘可用空间较低），但是此时应用程序还是正常运行的
         # ERROR | 由于一个更严重的问题导致某些功能不能正常运行时记录的信息
         # CRITICAL | 当发生严重错误，导致应用程序不能继续运行时记录的信息
-        self.logger.setLevel(logging.DEBUG)
+        self.logger.setLevel(logging.WARNING)
 
     # 输出到文件handler的函数定义
     def get_file_handler(self, filename):
