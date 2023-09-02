@@ -3,10 +3,11 @@ import random
 import traceback
 
 from reply1024 import postreply1024
+from sel_def_logger import MyLog
 from time import sleep
 from datetime import datetime, timedelta
 
-
+mylogg = MyLog().logger
 def handler(context):
     random_reply()
     return "Done"
@@ -63,6 +64,7 @@ def random_reply():
         res2 = cl1._visitthread(tidurl)
         if res2.text.find("快速回帖") == -1:
             print("前置帖子访问失败！")
+            mylogg.error(f'前置帖子{tid}访问失败！')
         #     cl1._send_to_mp("前置帖子访问失败！")
 
         if post_s % 5 == 0 and post_s != 0:
