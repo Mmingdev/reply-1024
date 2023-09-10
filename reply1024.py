@@ -167,7 +167,7 @@ class postreply1024:
         tid = res1[randn].get("id")[1:]
         atc_title = res1[randn].text
         while randn<20:
-            if ('求片求助貼' in atc_title) or atc_title=="":
+            if ('求片求助貼' in atc_title) or ('[活动]' in atc_title) or atc_title == "":
                 randn=randn+1
                 tidurl = res1[randn].get("href")
                 tid = res1[randn].get("id")[1:]
@@ -182,6 +182,7 @@ class postreply1024:
         res2=self._visitthread(tidurl)
         if res2.text.find("快速回帖")==-1:
             self._send_to_mp("前置帖子访问失败！")
+
 
         wordlist = ['忽忘提肛，感谢分享',
                     '感谢楼主辛苦分享',
