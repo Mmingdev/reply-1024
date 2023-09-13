@@ -56,7 +56,7 @@ def random_reply():
         tid = res1[randn].get("id")[1:]
         atc_title = res1[randn].text
         atc_content = wordlist_new[post_s]
-        if res1[randn].find('font', color="orange") != None or atc_title == "":
+        if res1[randn].find('font', color="orange") != None or ('求片求助貼' in atc_title) or atc_title == "":
             continue
         # if ('求片求助貼' in atc_title) or ('[活动]' in atc_title) or ('[领奖帖]' in atc_title) or atc_title == "":
         #     continue
