@@ -167,7 +167,7 @@ class postreply1024:
         tid = res1[randn].get("id")[1:]
         atc_title = res1[randn].text
         while randn<20:
-            if ('求片求助貼' in atc_title) or ('[活动]' in atc_title) or atc_title == "":
+            if ('求片求助貼' in atc_title) or ('[活动]' in atc_title) or ('[领奖帖]' in atc_title) or atc_title == "":
                 randn=randn+1
                 tidurl = res1[randn].get("href")
                 tid = res1[randn].get("id")[1:]
