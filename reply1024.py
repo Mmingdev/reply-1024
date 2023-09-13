@@ -166,14 +166,22 @@ class postreply1024:
         tidurl = res1[randn].get("href")
         tid = res1[randn].get("id")[1:]
         atc_title = res1[randn].text
+
         while randn<20:
-            if ('求片求助貼' in atc_title) or ('[活动]' in atc_title) or ('[领奖帖]' in atc_title) or atc_title == "":
-                randn=randn+1
+            if res1[randn].find('font',color="orange") != None or atc_title == "":
+                randn = randn + 1
                 tidurl = res1[randn].get("href")
                 tid = res1[randn].get("id")[1:]
                 atc_title = res1[randn].text
             else:
                 break
+            # if ('求片求助貼' in atc_title) or ('[活动]' in atc_title) or ('[领奖帖]' in atc_title) or atc_title == "":
+            #     randn=randn+1
+            #     tidurl = res1[randn].get("href")
+            #     tid = res1[randn].get("id")[1:]
+            #     atc_title = res1[randn].text
+            # else:
+            #     break
         else:
             raise RuntimeError('尝试次数过多')
 
