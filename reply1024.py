@@ -11,7 +11,7 @@ from time import sleep
 from sel_def_logger import MyLog
 
 class postreply1024:
-    _UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.188"
+    _UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0"
     _mylogg = MyLog().logger
     def __init__(self, host,cookies: str,app_id,app_secret,user_id,template_id,target_url):
         self._host=host
@@ -80,7 +80,7 @@ class postreply1024:
             return  BeautifulSoup(r.content, 'html.parser')
 
     def _visitthread(self,url):
-        pageurl = f"{self._host}/{url}"
+        pageurl = f"{self._host}{url}"
 
         with requests.session().get(
             pageurl,
@@ -95,8 +95,7 @@ class postreply1024:
     #回复帖子
     def _postreply(self,atc_title,atc_content,tidurl,tid):
         posturl=f"{self._host}/post.php?"
-        referer=f"{self._host}/{tidurl}"
-        atc_title= "Re:"+atc_title
+        referer=f"{self._host}{tidurl}"
         payload={
             'atc_usesign':'1',
             'atc_convert':'1',
@@ -136,8 +135,9 @@ class postreply1024:
             print("签到帖子访问失败！")
 
         # atc_title = res3.select('title')[0].text
-        atc_title = "[活动]九月份打卡签到活动专用贴！！禁止无关回复！！！增加新的奖励事项！！！注意第5条！！！"
+        atc_title = res3.select('input[name="atc_title"]')[0].attrs['value']
         atc_content = "今日签到"
+
         tid = self._target_url.split('/')[-1].replace(".html", "")
         # wait = int(random.uniform(1, 3) * 1000) / 1000
         # sleep(wait)
@@ -172,7 +172,7 @@ class postreply1024:
                 randn = randn + 1
                 tidurl = res1[randn].get("href")
                 tid = res1[randn].get("id")[1:]
-                atc_title = res1[randn].text
+                atc_title = "Re:" + res1[randn].text
             else:
                 break
             # if ('求片求助貼' in atc_title) or ('[活动]' in atc_title) or ('[领奖帖]' in atc_title) or atc_title == "":
