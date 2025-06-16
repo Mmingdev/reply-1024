@@ -129,8 +129,14 @@ class postreply1024:
 
 
     def _reply(self):
-        res3 = self._visitthread(self._target_url)
-        if res3.text.find("快速回帖")==-1:
+        n1 = 3
+        while n1 > 0:
+            n1 = n1 - 1
+            sleep(3)
+            res3 = self._visitthread(self._target_url)
+            if res3.text.find("快速回帖")!=-1:
+                break
+        else:
             # self._send_to_mp("签到帖子访问失败！")
             print("签到帖子访问失败！")
 
@@ -145,10 +151,14 @@ class postreply1024:
         time2 = datetime(time1.year, time1.month, time1.day+1, 0, 0, 0, 0)
         wait = (time2 - time1).seconds+1
         sleep(wait)
-        replyres2 = self._postreply(atc_title, atc_content, self._target_url, tid)
-        if replyres2.text.find("發貼完畢點擊進入主題列表") != -1:
-            sign_res = "签到成功"
-            # self._send_to_mp("签到回帖成功！")
+        n2 = 3
+        while n2 > 0:
+            n2 = n2-1
+            replyres2 = self._postreply(atc_title, atc_content, self._target_url, tid)
+            if replyres2.text.find("發貼完畢點擊進入主題列表") != -1:
+                sign_res = "签到成功"
+                # self._send_to_mp("签到回帖成功！")
+                break
         else:
             sign_res = "签到失败"
             # self._report_signin_failed("签到回帖失败！")
