@@ -20,15 +20,20 @@ jobs:
       - name: testcode
         run: |
           python3 test.py
+        env:
+          APP_ID: ${{ secrets.APP_ID }}
+          APP_SECRET: ${{ secrets.APP_SECRET }}
+          USER_ID: ${{ secrets.USER_ID }}
+          TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
 
-      - name: Commit
-        run: |
-          git config --global user.email ${{ secrets.GITH_EMAIL }}
-          git config --global user.name Mmingdev
-          git add .
-          git commit -m "运行成功"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITH_TOKEN }}
+#      - name: Commit
+#        run: |
+#          git config --global user.email ${{ secrets.GITH_EMAIL }}
+#          git config --global user.name Mmingdev
+#          git add .
+#          git commit -m "运行成功"
+#
+#      - name: Push changes
+#        uses: ad-m/github-push-action@master
+#        with:
+#          github_token: ${{ secrets.GITH_TOKEN }}
