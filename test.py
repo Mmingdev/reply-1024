@@ -4,29 +4,29 @@ import base64
 from Crypto.Cipher import AES
 # from reply1024 import postreply1024
 # import time
-from datetime import datetime, timedelta
+# from datetime import datetime, timedelta
 
-def add_to_16(self, value):
+def add_to_16(value):
     while len(value.encode('utf8')) % 16 != 0:
         value += '\0'
     return str.encode(value)  # 返回bytes
 
 
 # 加密方法
-def encrypt_oracle(self, key, e_text):
+def encrypt_oracle(key, e_text):
     # 初始化加密器
-    aes = AES.new(self.add_to_16(key), AES.MODE_ECB)
+    aes = AES.new(add_to_16(key), AES.MODE_ECB)
     # 先进行aes加密
-    encrypt_aes = aes.encrypt(self.add_to_16(e_text))
+    encrypt_aes = aes.encrypt(add_to_16(e_text))
     # 用base64转成字符串形式
     encrypted_text = str(base64.encodebytes(encrypt_aes), encoding='utf-8')  # 执行加密并转码返回bytes
     encrypted_text = encrypted_text.strip()  # strip， 后面会有一个换行符
     return encrypted_text
 
 # 解密方法
-def decrypt_oralce(self, key, d_text):
+def decrypt_oralce(key, d_text):
     # 初始化加密器
-    aes = AES.new(self.add_to_16(key), AES.MODE_ECB)
+    aes = AES.new(add_to_16(key), AES.MODE_ECB)
     # 优先逆向解密base64成bytes
     base64_decrypted = base64.decodebytes(d_text.encode(encoding='utf-8'))
     # 执行解密密并转码返回str
