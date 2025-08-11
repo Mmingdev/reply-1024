@@ -2,4 +2,3 @@ requests
 wechatpy==1.8.18
 cryptography==37.0.4
 bs4
-pycryptodome
