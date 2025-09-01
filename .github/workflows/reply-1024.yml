@@ -12,6 +12,7 @@ on:
   schedule:
     # 分(0-59) 时(0-23) 日(1-31) 月(1-12) 星期(0-6) UTC时间 +8小时为北京时间
     - cron: 40 15 * 9 *
+#    - cron: 15 4 1 * *
 #    - cron: 5 4,11,13 * 6 1,2,3,5,5
 #    - cron: 3 2,6,8,12 * 6 0,6
 
@@ -63,6 +64,16 @@ jobs:
         env:
           HOST: ${{ secrets.HOST }}
           COOKIES: ${{ secrets.COOKIES }}
+          APP_ID: ${{ secrets.APP_ID }}
+          APP_SECRET: ${{ secrets.APP_SECRET }}
+          USER_ID: ${{ secrets.USER_ID }}
+          TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
+
+      - name: SendNotice
+        if: github.event.schedule == '15 4 1 * *'
+        run: |
+          python3 SendNotice.py
+        env:
           APP_ID: ${{ secrets.APP_ID }}
           APP_SECRET: ${{ secrets.APP_SECRET }}
           USER_ID: ${{ secrets.USER_ID }}
