@@ -226,8 +226,8 @@ class postreply1024:
     def run(self):
         try:
             self._reply()
-        except BaseException:
-            self._mylogg.error('program error!')
+        except BaseException as e:
+            self._mylogg.error(traceback.format_exc()) #'program error!'
             self._report_signin_failed(traceback.format_exc())
 
 
