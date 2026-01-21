@@ -129,19 +129,20 @@ class postreply1024:
 
 
     def _reply(self):
-        n1 = 3
+        n1 = 3 # 3次尝试访问
         while n1 > 0:
             n1 = n1 - 1
             sleep(3)
             res3 = self._visitthread(self._target_url)
             if res3.text.find("快速回帖")!=-1:
+                atc_title = res3.select('input[name="atc_title"]')[0].attrs['value']
                 break
         else:
             # self._send_to_mp("签到帖子访问失败！")
             print("签到帖子访问失败！")
+            atc_title = "Re:[活动]新年快乐！！！2026年1月份打卡签到活动专用贴！！禁止无关回复！！！文末送邀请码3枚！！"
 
         # atc_title = res3.select('title')[0].text
-        atc_title = res3.select('input[name="atc_title"]')[0].attrs['value']
         atc_content = "今日签到"
 
         tid = self._target_url.split('/')[-1].replace(".html", "")
@@ -227,8 +228,9 @@ class postreply1024:
         try:
             self._reply()
         except BaseException as e:
-            self._mylogg.error(traceback.format_exc()) #'program error!'
-            self._report_signin_failed(traceback.format_exc())
+            error_text = traceback.format_exc()
+            self._mylogg.error(error_text) #'program error!'
+            self._report_signin_failed(error_text[error_text.rfind(":"):])
 
 
 
