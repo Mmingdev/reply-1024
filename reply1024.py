@@ -151,6 +151,10 @@ class postreply1024:
         time1 = datetime.now() + timedelta(hours=8)
         time2 = datetime(time1.year, time1.month, time1.day+1, 0, 0, 0, 0)
         wait = (time2 - time1).seconds+1
+        print(f"time1:{time1},time2:{time2}")
+        if wait > 3600:
+            print("等待时间超过1小时:",wait)
+            exit(0)
         sleep(wait)
         n2 = 3
         while n2 > 0:
