@@ -138,23 +138,22 @@ class postreply1024:
                 atc_title = res3.select('input[name="atc_title"]')[0].attrs['value']
                 break
         else:
-            # self._send_to_mp("签到帖子访问失败！")
+            sign_res = "签到帖子访问失败！"
             print("签到帖子访问失败！")
-            atc_title = "Re:[活动]新年快乐！！！2026年1月份打卡签到活动专用贴！！禁止无关回复！！！文末送邀请码3枚！！"
+            # atc_title = "Re:[活动]新年快乐！！！2026年1月份打卡签到活动专用贴！！禁止无关回复！！！文末送邀请码3枚！！"
+            raise RuntimeError("签到帖子访问失败！")
 
         # atc_title = res3.select('title')[0].text
         atc_content = "今日签到"
-
         tid = self._target_url.split('/')[-1].replace(".html", "")
-        # wait = int(random.uniform(1, 3) * 1000) / 1000
-        # sleep(wait)
+        # 等待次日开始执行
         time1 = datetime.now() + timedelta(hours=8)
-        time2 = datetime(time1.year, time1.month, time1.day+1, 0, 0, 0, 0)
-        wait = (time2 - time1).seconds+1
-        print(f"time1:{time1},time2:{time2}")
+        time1_0 = datetime(time1.year, time1.month, time1.day, 0, 0, 0, 0)
+        time2 = time1_0 + timedelta(days=1)
+        wait = (time2 - time1).seconds + 1
         if wait > 3600:
-            print("等待时间超过1小时:",wait)
-            exit(0)
+            print(f"等待时间超过1小时:{wait}\ntime1:{time1},time2:{time2}")
+            raise OverflowError('等待时间超过1小时')
         sleep(wait)
         n2 = 3
         while n2 > 0:
@@ -165,16 +164,14 @@ class postreply1024:
                 # self._send_to_mp("签到回帖成功！")
                 break
         else:
-            sign_res = "签到失败"
-            # self._report_signin_failed("签到回帖失败！")
-            return
+            # self._report_signin_failed("签到失败！")
+            raise RuntimeError('尝试签到失败')
 
         wait = int(random.uniform(1, 3) * 1000) / 1000
         sleep(wait)
         res1 = self._getlist()
         if res1.text.find("普通主題")==-1:
-            self._send_to_mp("获取列表失败")
-            return
+            raise RuntimeError("签到成功，但帖子列表获取失败")
 
         res1 = res1.select('#tbody tr.tr3.t_one.tac td.tal h3 a')
         randn = random.randint(1, 10)
@@ -190,22 +187,16 @@ class postreply1024:
                 atc_title = "Re:" + res1[randn].text
             else:
                 break
-            # if ('求片求助貼' in atc_title) or ('[活动]' in atc_title) or ('[领奖帖]' in atc_title) or atc_title == "":
-            #     randn=randn+1
-            #     tidurl = res1[randn].get("href")
-            #     tid = res1[randn].get("id")[1:]
-            #     atc_title = res1[randn].text
-            # else:
-            #     break
         else:
-            raise RuntimeError('尝试次数过多')
+            # self._send_to_mp("签到成功，但列表未找到符合的帖子")
+            raise RuntimeError("签到成功，但列表未找到符合的帖子")
 
         wait=int(random.uniform(1,3)*1000)/1000
         sleep(wait)
         res2=self._visitthread(tidurl)
         if res2.text.find("快速回帖")==-1:
-            self._send_to_mp("前置帖子访问失败！")
-
+            # self._send_to_mp("签到成功，但前置帖子访问失败")
+            raise RuntimeError("签到成功，但前置帖子访问失败")
 
         wordlist = ['忽忘提肛，感谢分享',
                     '感谢楼主辛苦分享',
@@ -223,17 +214,19 @@ class postreply1024:
             reply_res="更新回帖成功"
             # self._send_to_mp("更新回帖成功！")
         else:
-            reply_res = "更新回帖失败"
             # self._send_to_mp("更新回帖失败！")
-            return
+            raise RuntimeError("签到成功，但更新回帖失败！")
         self._send_to_mp(sign_res+","+reply_res)
 
     def run(self):
         try:
             self._reply()
-        except BaseException as e:
+        except (RuntimeError,OverflowError) as e:
+            self._mylogg.error(e)
+            self._report_signin_failed(e)
+        except Exception as e:
             error_text = traceback.format_exc()
-            self._mylogg.error(error_text) #'program error!'
+            self._mylogg.error(error_text)
             self._report_signin_failed(error_text[error_text.rfind(":"):])
 
 
