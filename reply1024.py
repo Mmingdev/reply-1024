@@ -221,7 +221,12 @@ class postreply1024:
     def run(self):
         try:
             self._reply()
-        except (RuntimeError,OverflowError) as e:
+        except RuntimeError as e:
+            print(e)
+            self._mylogg.error(e)
+            self._report_signin_failed(e)
+        except OverflowError as e:
+            print(e)
             self._mylogg.error(e)
             self._report_signin_failed(e)
         except Exception as e:

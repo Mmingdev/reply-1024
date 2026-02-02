@@ -32,3 +32,5 @@ if __name__ == '__main__':
     this_month_end = calendar.monthrange(now.year, now.month)[1]
     if td != this_month_end:
         reply1024()
+    else:
+        print("已到当月最后一天，明天需要更新")
