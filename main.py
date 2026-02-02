@@ -1,7 +1,8 @@
 import os
 from reply1024 import postreply1024
 # from sel_def_logger import MyLog
-import calendar,datetime
+import calendar
+from datetime import datetime, timedelta
 
 # mylogg = MyLog().logger
 # mylogg.info("代码开始运行的时间{}".format(datetime.now()))
@@ -26,7 +27,7 @@ def reply1024():
     postreply1024(HOST,COOKIES,APP_ID,APP_SECRET,USER_ID,TEMPLATE_ID,TARGET_URL).run()
 
 if __name__ == '__main__':
-    now = datetime.datetime.now()
+    now = datetime.now() + timedelta(hours=8)
     td = now.day
     this_month_end = calendar.monthrange(now.year, now.month)[1]
     if td != this_month_end:
