@@ -147,14 +147,20 @@ class postreply1024:
         atc_content = "今日签到"
         tid = self._target_url.split('/')[-1].replace(".html", "")
         # 等待次日开始执行
+        with open('tmp/temp.txt','r',encoding='utf-8') as f:
+            lastupdate = f.read()
+            lastupdate = lastupdate.split(":")[1]
+            lastupdate = datetime.strptime(lastupdate,"%Y-%m-%d")
         time1 = datetime.now() + timedelta(hours=8)
         time1_0 = datetime(time1.year, time1.month, time1.day, 0, 0, 0, 0)
         time2 = time1_0 + timedelta(days=1)
-        wait = (time2 - time1).seconds + 1
-        if wait > 3600:
-            print(f"等待时间超过1小时:{wait}\ntime1:{time1},time2:{time2}")
-            raise OverflowError('等待时间超过1小时')
-        sleep(wait)
+        if time2.date() == lastupdate.date():
+            wait = (time2 - time1).seconds + 1
+            if wait > 3600:
+                print(f"等待时间超过1小时:{wait}\ntime1:{time1},time2:{time2}")
+                raise OverflowError('等待时间超过1小时')
+            sleep(wait)
+        # 签到
         n2 = 3
         while n2 > 0:
             n2 = n2-1

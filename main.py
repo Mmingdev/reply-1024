@@ -27,10 +27,18 @@ def reply1024():
     postreply1024(HOST,COOKIES,APP_ID,APP_SECRET,USER_ID,TEMPLATE_ID,TARGET_URL).run()
 
 if __name__ == '__main__':
+    with open('tmp/temp.txt','r',encoding='utf-8') as file:
+        text = file.read()
+        lastupdate = text.split(":")[1]
+    lastupdate = datetime.strptime(lastupdate,'%Y-%m-%d')
+    lday = lastupdate.day
     now = datetime.now() + timedelta(hours=8)
-    td = now.day
     this_month_end = calendar.monthrange(now.year, now.month)[1]
-    if td != this_month_end:
+    if lday != this_month_end:
         reply1024()
     else:
         print("已到当月最后一天，明天需要更新")
+    lastupdate = lastupdate + timedelta(days=1)
+    w_content = "lastupdate:" + datetime.strftime(lastupdate,"%Y-%m-%d")
+    with open("tmp/temp.txt","w") as file:
+        file.write(w_content)
