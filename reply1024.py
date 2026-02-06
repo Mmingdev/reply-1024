@@ -152,6 +152,7 @@ class postreply1024:
             lastupdate = lastupdate.split(":")[1]
             lastupdate = datetime.strptime(lastupdate,"%Y-%m-%d")
         time1 = datetime.now() + timedelta(hours=8)
+        print(time1)
         time1_0 = datetime(time1.year, time1.month, time1.day, 0, 0, 0, 0)
         time2 = time1_0 + timedelta(days=1)
         if time2.date() == lastupdate.date():
