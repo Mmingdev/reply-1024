@@ -34,11 +34,11 @@ if __name__ == '__main__':
     lday = lastupdate.day
     now = datetime.now() + timedelta(hours=8)
     this_month_end = calendar.monthrange(now.year, now.month)[1]
-    lastupdate = lastupdate + timedelta(days=1)
-    w_content = "lastupdate:" + datetime.strftime(lastupdate,"%Y-%m-%d")
-    with open("tmp/temp.txt","w") as file:
-        file.write(w_content)
     if lday != this_month_end:
         reply1024()
     else:
         print("已到当月最后一天，明天需要更新")
+    lastupdate = lastupdate + timedelta(days=1)
+    w_content = "lastupdate:" + datetime.strftime(lastupdate, "%Y-%m-%d")
+    with open("tmp/temp.txt", "w") as file:
+        file.write(w_content)
