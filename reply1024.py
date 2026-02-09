@@ -155,12 +155,14 @@ class postreply1024:
         print(time1)
         time1_0 = datetime(time1.year, time1.month, time1.day, 0, 0, 0, 0)
         time2 = time1_0 + timedelta(days=1)
-        if time2.date() == lastupdate.date():
+        if time1.date() == lastupdate.date():
             wait = (time2 - time1).seconds + 1
             if wait > 3600:
                 print(f"等待时间超过1小时:{wait}\ntime1:{time1},time2:{time2}")
                 raise OverflowError('等待时间超过1小时')
             sleep(wait)
+        elif time2.date() != lastupdate.date():
+            raise RuntimeError("日期错误")
         # 签到
         n2 = 3
         while n2 > 0:
