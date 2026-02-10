@@ -161,7 +161,7 @@ class postreply1024:
                 print(f"等待时间超过1小时:{wait}\ntime1:{time1},time2:{time2}")
                 raise OverflowError('等待时间超过1小时')
             sleep(wait)
-        elif time2.date() != lastupdate.date():
+        elif time1.date() != (lastupdate + timedelta(days=1)).date():
             raise RuntimeError("日期错误")
         # 签到
         n2 = 3
@@ -231,11 +231,11 @@ class postreply1024:
         try:
             self._reply()
         except RuntimeError as e:
-            print(e)
+            print(e,type(e))
             self._mylogg.error(e)
             self._report_signin_failed(e)
         except OverflowError as e:
-            print(e)
+            print(e,type(e))
             self._mylogg.error(e)
             self._report_signin_failed(e)
         except Exception as e:
