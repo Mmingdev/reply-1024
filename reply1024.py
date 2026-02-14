@@ -231,17 +231,14 @@ class postreply1024:
         try:
             self._reply()
         except RuntimeError as e:
-            print(e,type(e))
-            self._mylogg.error(e)
-            self._report_signin_failed(e)
+            msg = str(e)
+            self._mylogg.error(msg)
+            self._report_signin_failed(msg)
         except OverflowError as e:
-            print(e,type(e))
-            self._mylogg.error(e)
-            self._report_signin_failed(e)
+            msg = str(e)
+            self._mylogg.error(msg)
+            self._report_signin_failed(msg)
         except Exception as e:
             error_text = traceback.format_exc()
             self._mylogg.error(error_text)
             self._report_signin_failed(error_text[error_text.rfind(":"):])
-
-
-
