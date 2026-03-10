@@ -232,7 +232,9 @@ class postreply1024:
             self._reply()
         except RuntimeError as e:
             msg = str(e)
-            self._mylogg.error(msg)
+            error_text = traceback.format_exc()
+            print(error_text)
+            self._mylogg.error(error_text)
             self._report_signin_failed(msg)
         except OverflowError as e:
             msg = str(e)
