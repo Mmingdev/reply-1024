@@ -1,6 +1,7 @@
 import traceback
 import random
 import requests
+import calendar
 
 # from typing import Optional
 from bs4 import BeautifulSoup
@@ -13,6 +14,12 @@ from sel_def_logger import MyLog
 class postreply1024:
     _UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0"
     _mylogg = MyLog().logger
+    with open('tmp/temp.txt', 'r', encoding='utf-8') as file:
+        _text = file.read()
+        _lastupdate = _text.split(":")[1]
+    _lastupdate = datetime.strptime(_lastupdate, '%Y-%m-%d')
+    _lday = _lastupdate.day
+    _this_month_end = calendar.monthrange(_lastupdate.year, _lastupdate.month)[1]
     def __init__(self, host,cookies: str,app_id,app_secret,user_id,template_id,target_url):
         self._host=host
         self._cookies: str = cookies
@@ -147,21 +154,18 @@ class postreply1024:
         atc_content = "今日签到"
         tid = self._target_url.split('/')[-1].replace(".html", "")
         # 等待次日开始执行
-        with open('tmp/temp.txt','r',encoding='utf-8') as f:
-            lastupdate = f.read()
-            lastupdate = lastupdate.split(":")[1]
-            lastupdate = datetime.strptime(lastupdate,"%Y-%m-%d")
         time1 = datetime.now() + timedelta(hours=8)
         print(time1)
         time1_0 = datetime(time1.year, time1.month, time1.day, 0, 0, 0, 0)
         time2 = time1_0 + timedelta(days=1)
-        if time1.date() == lastupdate.date():
+        if time1.date() == self._lastupdate.date():
             wait = (time2 - time1).seconds + 1
             if wait > 3600:
                 print(f"等待时间超过1小时:{wait}\ntime1:{time1},time2:{time2}")
                 raise OverflowError('等待时间超过1小时')
             sleep(wait)
-        elif time1.date() != (lastupdate + timedelta(days=1)).date():
+        elif time1.date() != (self._lastupdate + timedelta(days=1)).date():
+            print(f"time1:{time1.date()},lastupdate:{self._lastupdate.date()}")
             raise RuntimeError("日期错误")
         # 签到
         n2 = 3
@@ -229,7 +233,10 @@ class postreply1024:
 
     def run(self):
         try:
-            self._reply()
+            if self._lday != self._this_month_end:
+                self._reply()
+            else:
+                print("已到当月最后一天，明天需要更新")
         except RuntimeError as e:
             msg = str(e)
             error_text = traceback.format_exc()
@@ -244,3 +251,8 @@ class postreply1024:
             error_text = traceback.format_exc()
             self._mylogg.error(error_text)
             self._report_signin_failed(error_text[error_text.rfind(":"):])
+        finally:
+            self._lastupdate = self._lastupdate + timedelta(days=1)
+            w_content = "lastupdate:" + datetime.strftime(self._lastupdate, "%Y-%m-%d")
+            with open("tmp/temp.txt", "w") as file:
+                file.write(w_content)
