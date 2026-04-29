@@ -22,5 +22,12 @@ if __name__ == '__main__':
     APP_SECRET = os.getenv('APP_SECRET')
     USER_ID = os.getenv('USER_ID')
     TEMPLATE_ID = os.getenv('TEMPLATE_ID')
-    data = "已到1号，记得更新。"
-    _send_to_mp(APP_ID,APP_SECRET,USER_ID,TEMPLATE_ID,data)
+
+    with open('tmp/temp.txt', 'r', encoding='utf-8') as file:
+        _text = file.read()
+        _result = _text.split(",")[1]
+    if _result != "success":
+        msg = "记得签到"
+        _send_to_mp(APP_ID, APP_SECRET, USER_ID, '1gUyGk6YJWp3vkdsIVbf571M-O5SK2mPCq28QG2xKrA', msg)
+    # msg = "已到1号，记得更新。"
+    # _send_to_mp(APP_ID,APP_SECRET,USER_ID,TEMPLATE_ID,msg)

@@ -233,26 +233,30 @@ class postreply1024:
 
     def run(self):
         try:
+            result = "success"
             if self._lday != self._this_month_end:
                 self._reply()
             else:
                 print("已到当月最后一天，明天需要更新")
         except RuntimeError as e:
+            result = "failed"
             msg = str(e)
             error_text = traceback.format_exc()
             print(error_text)
             self._mylogg.error(error_text)
             self._report_signin_failed(msg)
         except OverflowError as e:
+            result = "failed"
             msg = str(e)
             self._mylogg.error(msg)
             self._report_signin_failed(msg)
         except Exception as e:
+            result = "failed"
             error_text = traceback.format_exc()
             self._mylogg.error(error_text)
             self._report_signin_failed(error_text[error_text.rfind(":"):])
         finally:
             self._lastupdate = self._lastupdate + timedelta(days=1)
-            w_content = "lastupdate:" + datetime.strftime(self._lastupdate, "%Y-%m-%d")
+            w_content = "lastupdate:" + datetime.strftime(self._lastupdate, "%Y-%m-%d") + "," + result
             with open("tmp/temp.txt", "w") as file:
                 file.write(w_content)
