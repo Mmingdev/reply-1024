@@ -2,6 +2,7 @@ from wechatpy import WeChatClient
 from wechatpy.client.api import WeChatMessage, WeChatTemplate
 from datetime import datetime, timedelta
 import random
+import os
 
 
 def _get_random_color():
