@@ -16,7 +16,8 @@ class postreply1024:
     _mylogg = MyLog().logger
     with open('tmp/temp.txt', 'r', encoding='utf-8') as file:
         _text = file.read()
-        _lastupdate = _text.split(":")[1]
+        _text = _text.replace("lastupdate:","")
+        _lastupdate = _text.split(",")[0]
     _lastupdate = datetime.strptime(_lastupdate, '%Y-%m-%d')
     _lday = _lastupdate.day
     _this_month_end = calendar.monthrange(_lastupdate.year, _lastupdate.month)[1]
