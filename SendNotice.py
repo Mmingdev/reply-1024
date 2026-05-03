@@ -26,8 +26,11 @@ if __name__ == '__main__':
 
     with open('tmp/temp.txt', 'r', encoding='utf-8') as file:
         _text = file.read()
+        _text = _text.replace("lastupdate:", "")
+        _date = _text.split(",")[0]
         _result = _text.split(",")[1]
-    if _result != "success":
+    tday = datetime.now() + timedelta(hours=8)
+    if _date != tday.date() or _result != "success":
         msg = "记得签到"
         _send_to_mp(APP_ID, APP_SECRET, USER_ID, '1gUyGk6YJWp3vkdsIVbf571M-O5SK2mPCq28QG2xKrA', msg)
     # msg = "已到1号，记得更新。"
