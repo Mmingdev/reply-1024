@@ -71,7 +71,7 @@ jobs:
           TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
 
       - name: SendNotice
-        if: github.event.schedule == '0 10 * 5 *'
+        if: github.event.schedule == '0 9 * 5 *'
         run: |
           python3 SendNotice.py
         env:
