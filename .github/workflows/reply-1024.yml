@@ -10,10 +10,10 @@ on:
  # pull_request:
  #   branches: [ "main" ]
   schedule:
-    # 分(0-59) 时(0-23) 日(1-31) 月(1-12) 星期(0-6) 现已是北京时间？(UTC时间 +8小时为北京时间)
-    - cron: 30 23 * 8 *
-    - cron: 0 17 * 8 *
-    - cron: 15 12 1 * *
+    # 分(0-59) 时(0-23) 日(1-31) 月(1-12) 星期(0-6) UTC时间 +8小时为北京时间
+    - cron: 30 15 * 8 *
+    - cron: 0 9 * 8 *
+    - cron: 15 4 1 * *
 #    - cron: 5 4,11,13 * 6 1,2,3,5,5
 #    - cron: 3 2,6,8,12 * 6 0,6
 
@@ -45,7 +45,7 @@ jobs:
           pip3 install -r requirements.txt
 
       - name: reply1024
-        if: github.event.schedule == '30 23 * 8 *'
+        if: github.event.schedule == '30 15 * 8 *'
         run: |
           python3 main.py
         env:
@@ -71,7 +71,7 @@ jobs:
           TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
 
       - name: SendNotice
-        if: github.event.schedule == '0 17 * 8 *' || github.event.schedule == '15 12 1 * *'
+        if: github.event.schedule == '0 9 * 8 *' || github.event.schedule == '15 4 1 * *'
         run: |
           python3 SendNotice.py
         env:
@@ -81,7 +81,7 @@ jobs:
           TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
 
       - name: Commit1
-        if: github.event.schedule == '30 23 * 8 *'
+        if: github.event.schedule == '30 15 * 8 *'
         run: |
           git config --global user.email ${{ secrets.GITH_EMAIL }}
           git config --global user.name Mmingdev
@@ -89,7 +89,7 @@ jobs:
           git commit -m "记录日志"
 
       - name: Push changes
-        if: github.event.schedule == '30 23 * 8 *'
+        if: github.event.schedule == '30 15 * 8 *'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITH_TOKEN }}
