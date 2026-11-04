@@ -33,7 +33,7 @@ class postreply1024:
     def _get_random_color(self):
         return "#%06x" % random.randint(0, 0xFFFFFF)
     def _send_to_mp(self,msg:str):
-        tday = datetime.now()+timedelta(hours = 8)
+        tday = datetime.now()#+timedelta(hours = 8)
         tday=tday.strftime("%Y-%m-%d %H:%M:%S")
         client = WeChatClient(self._app_id, self._app_secret)
         wm = WeChatMessage(client)
@@ -44,7 +44,7 @@ class postreply1024:
         res = wm.send_template(self._user_id, self._template_id, data)
 
     def _report_signin_failed(self,msg:str):
-        tday = datetime.now()+timedelta(hours = 8)
+        tday = datetime.now()#+timedelta(hours = 8)
         tday=tday.strftime("%Y-%m-%d %H:%M:%S")
         client = WeChatClient(self._app_id, self._app_secret)
         wm = WeChatMessage(client)
@@ -155,7 +155,7 @@ class postreply1024:
         atc_content = "今日签到"
         tid = self._target_url.split('/')[-1].replace(".html", "")
         # 等待次日开始执行
-        time1 = datetime.now() + timedelta(hours=8)
+        time1 = datetime.now()# + timedelta(hours=8)
         print(time1)
         time1_0 = datetime(time1.year, time1.month, time1.day, 0, 0, 0, 0)
         time2 = time1_0 + timedelta(days=1)

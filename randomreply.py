@@ -78,7 +78,7 @@ def random_reply():
         if replyres1.text.find("發貼完畢點擊進入主題列表") != -1:
             post_s += 1
 
-    tday = datetime.now() + timedelta(hours=8)
+    tday = datetime.now()# + timedelta(hours=8)
     if tday.hour < 20:
         with open("./tmp/test.txt", "r+") as f:
             n = f.read()

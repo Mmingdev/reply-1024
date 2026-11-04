@@ -8,7 +8,7 @@ import os
 def _get_random_color():
     return "#%06x" % random.randint(0, 0xFFFFFF)
 def _send_to_mp(_app_id,_app_secret,_user_id,_template_id,msg: str):
-    tday = datetime.now() + timedelta(hours=8)
+    tday = datetime.now()# + timedelta(hours=8)
     tday = tday.strftime("%Y-%m-%d %H:%M:%S")
     client = WeChatClient(_app_id, _app_secret)
     wm = WeChatMessage(client)
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     _date = _text.split(",")[0]
     _date = datetime.strptime(_date, '%Y-%m-%d')
     _result = _text.split(",")[1]
-    tday = datetime.now() + timedelta(hours=8)
+    tday = datetime.now()# + timedelta(hours=8)
     if _date.date() != tday.date() or _result != "success":
         msg = "记得签到"
         _send_to_mp(APP_ID, APP_SECRET, USER_ID, '1gUyGk6YJWp3vkdsIVbf571M-O5SK2mPCq28QG2xKrA', msg)
