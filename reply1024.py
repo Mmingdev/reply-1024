@@ -156,7 +156,7 @@ class postreply1024:
         tid = self._target_url.split('/')[-1].replace(".html", "")
         # 等待次日开始执行
         time1 = datetime.now() + timedelta(hours=8)
-        print(time1)
+        print(f"time1:{time1},lastupdate:{self._lastupdate.date()}")
         time1_0 = datetime(time1.year, time1.month, time1.day, 0, 0, 0, 0)
         time2 = time1_0 + timedelta(days=1)
         if time1.date() == self._lastupdate.date():

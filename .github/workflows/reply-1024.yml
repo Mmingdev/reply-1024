@@ -93,3 +93,10 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITH_TOKEN }}
+
+      - name: 打印触发信息
+        run: |
+          echo "event: ${{ github.event_name }}"
+          echo "fired cron: ${{ github.event.schedule }}"
+          date -u '+UTC  %F %T'
+          TZ=Asia/Shanghai date '+CST  %F %T'
